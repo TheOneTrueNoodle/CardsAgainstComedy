@@ -175,7 +175,7 @@ MonoBehaviour:
   JokesInHand: []
   MaxJokesInHand: 2
   CardParent: {fileID: 2074123345}
-  cardOffset: 3
+  cardOffset: 2
 --- !u!1 &537775198
 GameObject:
   m_ObjectHideFlags: 0
