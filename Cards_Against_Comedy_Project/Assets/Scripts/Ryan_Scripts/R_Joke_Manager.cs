@@ -13,6 +13,7 @@ public class R_Joke_Manager : MonoBehaviour
     [Header("Values for cards in play")]
     [SerializeField] private GameObject CardParent;
     [SerializeField] private byte cardOffset = 1;
+    public GameObject PlayArea;
 
     private void Start()
     {
@@ -26,5 +27,10 @@ public class R_Joke_Manager : MonoBehaviour
 
             JokesInHand[i].transform.position = new Vector3(-cardOffset + (i * cardOffset * 2), gameObject.transform.position.y, 0);
         }
+    }
+
+    public void PlayCard(R_Joke_Card PlayedCard)
+    {
+
     }
 }
