@@ -12,6 +12,8 @@ public class R_Joke_Card : MonoBehaviour
     [SerializeField] private TMP_Text TextBox;
     public GameObject ThisJokePrefab;
 
+    public JokeGenre Genre;
+
     private void Start()
     {
         TextBox.text = '"' + JokeSetup + '"';
