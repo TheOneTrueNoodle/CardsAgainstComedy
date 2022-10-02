@@ -34,6 +34,7 @@ public class R_Joke_Manager : MonoBehaviour
             TotalRemainingJokes.RemoveAt(CardNum);
 
             JokesInHand[i].transform.position = new Vector3(-cardOffset + (i * cardOffset * 2), gameObject.transform.position.y, 0);
+            JokesInHand[i].GetComponent<R_Joke_Dragger>().HandPosition = JokesInHand[i].transform.position;
         }
     }
 
@@ -55,6 +56,7 @@ public class R_Joke_Manager : MonoBehaviour
         for (int i = 0; i < JokesInHand.Count; i++)
         {
             JokesInHand[i].transform.position = new Vector3(-cardOffset + (i * cardOffset * 2), gameObject.transform.position.y, 0);
+            JokesInHand[i].GetComponent<R_Joke_Dragger>().HandPosition = JokesInHand[i].transform.position;
         }
     }
 
@@ -62,7 +64,6 @@ public class R_Joke_Manager : MonoBehaviour
     {
         JokesInHand.Remove(PlayedCard);
         UsedJokes.Add(PlayedCard.GetComponent<R_Joke_Card>().ThisJokePrefab);
-        Destroy(PlayedCard);
 
         int DarkAudience = 0;
         int DeadpanAudience = 0;
@@ -101,6 +102,7 @@ public class R_Joke_Manager : MonoBehaviour
 
         //Now that the joke has affected the audience, we roll need to do a few things. Get new joke card and update hand order & shuffle out some audience members...
         int numNewAudience = Random.Range(1, MaxAudienceSwap);
+        Destroy(PlayedCard);
         AM.ShiftAudience(numNewAudience);
         ResetHand();
     }
