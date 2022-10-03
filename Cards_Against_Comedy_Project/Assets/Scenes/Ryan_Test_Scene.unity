@@ -335,8 +335,6 @@ MonoBehaviour:
   UsedJokes: []
   JokesInHand: []
   MaxJokesInHand: 2
-  AudienceSatisfaction: {fileID: 2007163506}
-  AudienceSatsfactionVariable: 0
   CardParent: {fileID: 1473009609}
   cardOffset: 4
   PlayArea: {fileID: 1683222895}
