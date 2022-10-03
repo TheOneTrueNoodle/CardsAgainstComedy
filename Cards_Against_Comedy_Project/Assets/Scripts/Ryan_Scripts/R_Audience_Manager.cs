@@ -26,7 +26,7 @@ public class R_Audience_Manager : MonoBehaviour
 
     private void Update()
     {
-        SatisfactionDisplay.text = AudienceSatisfaction.ToString();
+        SatisfactionDisplay.text = "Satisfaction: " + AudienceSatisfaction.ToString();
 
         if(AudienceSatisfaction <= 0)
         {
