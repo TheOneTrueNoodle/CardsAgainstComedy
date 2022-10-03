@@ -43,6 +43,7 @@ public class R_Joke_Dragger : MonoBehaviour
         if(Vector3.Distance(PlayArea.gameObject.transform.position, GetMousePos()) <= LockOnDistance)
         {
             //PLAY JOKE CODE HERE
+            JM.Punchline(GetComponent<R_Joke_Card>().Punchline);    
             JM.PlayCard(this.gameObject);
         }
         else

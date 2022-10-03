@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using TMPro;
 
 public class R_Joke_Manager : MonoBehaviour
 {
@@ -19,7 +20,7 @@ public class R_Joke_Manager : MonoBehaviour
     [SerializeField] private GameObject CardParent;
     [SerializeField] private byte cardOffset = 1;
     public GameObject PlayArea;
-
+    [SerializeField] private TMP_Text PunchlineText;
     private void Start()
     {
         TotalRemainingJokes.AddRange(AllJokes);
@@ -29,8 +30,8 @@ public class R_Joke_Manager : MonoBehaviour
             int CardNum = Random.Range(0, TotalRemainingJokes.Count);
             GameObject CardObj = Instantiate(TotalRemainingJokes[CardNum]);
             CardObj.transform.SetParent(CardParent.transform, false);
+            CardObj.GetComponent<R_Joke_Card>().ThisJokePrefab = TotalRemainingJokes[CardNum];
             JokesInHand.Add(CardObj);
-            CardObj.GetComponent<R_Joke_Card>().ThisJokePrefab = TotalRemainingJokes[i];
             TotalRemainingJokes.RemoveAt(CardNum);
 
             JokesInHand[i].transform.position = new Vector3(-cardOffset + (i * cardOffset * 2), gameObject.transform.position.y, 0);
@@ -105,5 +106,10 @@ public class R_Joke_Manager : MonoBehaviour
         Destroy(PlayedCard);
         AM.ShiftAudience(numNewAudience);
         ResetHand();
+    }
+
+    public void Punchline(string punchline)
+    {
+        PunchlineText.text = '"' + punchline + '"'; 
     }
 }
