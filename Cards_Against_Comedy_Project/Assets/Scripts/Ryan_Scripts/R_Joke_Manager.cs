@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using TMPro;
+using UnityEngine.UI; 
 
 public class R_Joke_Manager : MonoBehaviour
 {
@@ -14,15 +14,26 @@ public class R_Joke_Manager : MonoBehaviour
     public List<GameObject> UsedJokes;
     public List<GameObject> JokesInHand;
 
+    // public Text DarkAudienceText;
+    // public Text DeadPanAudienceText;
+    //  public Text SatireAudienceText;
+    // public Text PunAudienceText;
+    public Text AudienceSatisfaction;
+    public int AudienceSatsfactionVariable;
+
     public int MaxJokesInHand = 2;
+
+
 
     [Header("Values for cards in play")]
     [SerializeField] private GameObject CardParent;
     [SerializeField] private byte cardOffset = 1;
     public GameObject PlayArea;
-    [SerializeField] private TMP_Text PunchlineText;
+
+    
     private void Start()
     {
+        //DarkAudienceText.text = "Dark" + 
         TotalRemainingJokes.AddRange(AllJokes);
 
         for(int i = 0; i < MaxJokesInHand; i++)
@@ -30,8 +41,8 @@ public class R_Joke_Manager : MonoBehaviour
             int CardNum = Random.Range(0, TotalRemainingJokes.Count);
             GameObject CardObj = Instantiate(TotalRemainingJokes[CardNum]);
             CardObj.transform.SetParent(CardParent.transform, false);
-            CardObj.GetComponent<R_Joke_Card>().ThisJokePrefab = TotalRemainingJokes[CardNum];
             JokesInHand.Add(CardObj);
+            CardObj.GetComponent<R_Joke_Card>().ThisJokePrefab = TotalRemainingJokes[i];
             TotalRemainingJokes.RemoveAt(CardNum);
 
             JokesInHand[i].transform.position = new Vector3(-cardOffset + (i * cardOffset * 2), gameObject.transform.position.y, 0);
@@ -78,18 +89,23 @@ public class R_Joke_Manager : MonoBehaviour
             if(Genre == JokeGenre.Dark)
             {
                 DarkAudience++;
+               
+
             }
             else if(Genre == JokeGenre.Deadpan)
             {
                 DeadpanAudience++;
+               
             }
             else if(Genre == JokeGenre.Satire)
             {
                 SatireAudience++;
+               
             }
             else if(Genre == JokeGenre.Puns)
             {
                 PunAudience++;
+              
             }
         }
 
@@ -100,6 +116,9 @@ public class R_Joke_Manager : MonoBehaviour
         else if (genre == JokeGenre.Deadpan) { AM.AudienceSatisfaction += DeadpanAudience - SatireAudience; }
         else if (genre == JokeGenre.Satire) { AM.AudienceSatisfaction += SatireAudience - PunAudience; }
         else if (genre == JokeGenre.Puns) { AM.AudienceSatisfaction += PunAudience - DarkAudience; }
+       
+        AudienceSatsfactionVariable =  AM.AudienceSatisfaction;
+        Debug.Log(AudienceSatsfactionVariable);
 
         //Now that the joke has affected the audience, we roll need to do a few things. Get new joke card and update hand order & shuffle out some audience members...
         int numNewAudience = Random.Range(1, MaxAudienceSwap);
@@ -107,9 +126,9 @@ public class R_Joke_Manager : MonoBehaviour
         AM.ShiftAudience(numNewAudience);
         ResetHand();
     }
-
-    public void Punchline(string punchline)
+    public void Update()
     {
-        PunchlineText.text = '"' + punchline + '"'; 
+
+        AudienceSatisfaction.text = "Satisfaction: " + (AudienceSatsfactionVariable.ToString());
     }
 }
