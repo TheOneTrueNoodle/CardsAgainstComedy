@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI; 
+using UnityEngine.UI;
+using TMPro;
 
 public class R_Joke_Manager : MonoBehaviour
 {
@@ -14,21 +15,19 @@ public class R_Joke_Manager : MonoBehaviour
     public List<GameObject> UsedJokes;
     public List<GameObject> JokesInHand;
 
+    public int MaxJokesInHand = 2;
     // public Text DarkAudienceText;
     // public Text DeadPanAudienceText;
     //  public Text SatireAudienceText;
     // public Text PunAudienceText;
     public Text AudienceSatisfaction;
-    public int AudienceSatsfactionVariable;
-
-    public int MaxJokesInHand = 2;
-
-
+    [HideInInspector] public int AudienceSatsfactionVariable;
 
     [Header("Values for cards in play")]
     [SerializeField] private GameObject CardParent;
     [SerializeField] private byte cardOffset = 1;
     public GameObject PlayArea;
+    public TMP_Text PunchlineText;
 
     
     private void Start()
@@ -42,7 +41,7 @@ public class R_Joke_Manager : MonoBehaviour
             GameObject CardObj = Instantiate(TotalRemainingJokes[CardNum]);
             CardObj.transform.SetParent(CardParent.transform, false);
             JokesInHand.Add(CardObj);
-            CardObj.GetComponent<R_Joke_Card>().ThisJokePrefab = TotalRemainingJokes[i];
+            CardObj.GetComponent<R_Joke_Card>().ThisJokePrefab = TotalRemainingJokes[CardNum];
             TotalRemainingJokes.RemoveAt(CardNum);
 
             JokesInHand[i].transform.position = new Vector3(-cardOffset + (i * cardOffset * 2), gameObject.transform.position.y, 0);
@@ -128,7 +127,11 @@ public class R_Joke_Manager : MonoBehaviour
     }
     public void Update()
     {
-
         AudienceSatisfaction.text = "Satisfaction: " + (AudienceSatsfactionVariable.ToString());
+    }
+
+    public void Punchline(string punchline)
+    {
+        PunchlineText.text = '"' + punchline + '"';
     }
 }
